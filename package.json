@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "node ./server/DataAccess/runSeed.js",
+    "test:DataAccess": "LOGGING=false ./node_modules/mocha/bin/mocha ./tests/DataAccess.spec.js --watch"
   },
   "keywords": [],
   "author": "",
@@ -23,5 +25,9 @@
     "volleyball": "^1.5.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2"
   }
 }
