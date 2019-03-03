@@ -1,0 +1,29 @@
+h5 {
+  margin-bottom: 25px;
+}
+
+.product-list-item {
+  list-style-type: none;
+  height: 60px;
+}
+
+.category-buttons {
+  text-align: end;
+  padding-right: 0px;
+}
+
+.create-product-button {
+  margin-right: 15px;
+}
+
+.product-delete-button {
+  margin-left: 10px;
+}
+
+#main {
+  margin-top: 10px;
+}
+
+#create-category-button {
+  margin: 30px auto 15px;
+}

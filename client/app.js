@@ -70,12 +70,13 @@ class App extends Component {
 
   render() {
     return (
-      <div id="main">
+      <div className="container" id="main">
         <h2>
           Acme Categories and Products by <i>faker</i>
         </h2>
         <button
           className="btn btn-primary"
+          id="create-category-button"
           type="submit"
           onClick={this.createNewCategory}
         >
