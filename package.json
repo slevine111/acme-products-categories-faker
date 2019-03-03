@@ -2,12 +2,11 @@
   "name": "acme_products_categorie_fakers",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start:dev": "npm run start-server:dev & npm run build-watch",
     "seed": "node ./server/DataAccess/runSeed.js",
     "test:DataAccess": "LOGGING=false ./node_modules/mocha/bin/mocha ./tests/DataAccess.spec.js --watch",
-    "start-server:dev": "nodemon ./server/main.js --ignore client --ignore public",
+    "start-server:dev": "nodemon --watch server -e js,html server/main.js",
     "build-watch": "webpack -w"
   },
   "keywords": [],
