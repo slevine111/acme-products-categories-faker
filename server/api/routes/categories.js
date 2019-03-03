@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const { Category } = require('../../DataAccess/models/index')
+const { Category, Product } = require('../../DataAccess/models/index')
+
+module.exports = router
 
 router.get('/', (req, res, next) => {
   Category.getAllData()
@@ -20,4 +22,8 @@ router.delete('/:id', (req, res, next) => {
     .catch(next)
 })
 
-module.exports = router
+router.post('/:id/products', (req, res, next) => {
+  Product.createNewProduct(Number(req.params.id))
+    .then(product => res.json(product))
+    .catch(next)
+})
