@@ -9,12 +9,20 @@ const SingleCategory = ({
 }) => {
   const { name, products, id } = category
   return (
-    <li>
+    <li className="list-group-item">
       {name}
-      <button type="submit" onClick={() => createNewProduct(id)}>
+      <button
+        className="btn btn-primary btn-sm"
+        type="submit"
+        onClick={() => createNewProduct(id)}
+      >
         +
       </button>
-      <button type="submit" onClick={() => deleteCategory(id)}>
+      <button
+        className="btn btn-danger btn-sm"
+        type="submit"
+        onClick={() => deleteCategory(id)}
+      >
         -
       </button>
       <ul>

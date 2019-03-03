@@ -55,8 +55,6 @@ class App extends Component {
   }
 
   deleteProduct(productId, categoryId) {
-    console.log(productId)
-    console.log(categoryId)
     axios.delete(`/api/categories/products/${productId}`).then(() => {
       return this.setState(prevState => {
         const categoryOfProduct = prevState.data.find(
@@ -76,7 +74,11 @@ class App extends Component {
         <h2>
           Acme Categories and Products by <i>faker</i>
         </h2>
-        <button type="submit" onClick={this.createNewCategory}>
+        <button
+          className="btn btn-primary"
+          type="submit"
+          onClick={this.createNewCategory}
+        >
           Create Category
         </button>
         <List

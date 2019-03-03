@@ -3,7 +3,7 @@ import SingleCategory from './SingleCategory'
 
 const List = ({ data, createNewProduct, deleteCategory, deleteProduct }) => {
   return (
-    <ul>
+    <ul className="list-group">
       {data.map(category => {
         return (
           <SingleCategory

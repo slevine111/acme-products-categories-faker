@@ -5,7 +5,11 @@ const SingleProduct = ({ product, categoryId, deleteProduct }) => {
   return (
     <li>
       {name}
-      <button type="submit" onClick={() => deleteProduct(id, categoryId)}>
+      <button
+        className="btn btn-danger btn-sm"
+        type="submit"
+        onClick={() => deleteProduct(id, categoryId)}
+      >
         -
       </button>
     </li>
