@@ -6,9 +6,6 @@ function dbInit(force = false) {
     .authenticate()
     .then(() => setAssociations())
     .then(() => connection.sync({ force: force }))
-  /* .catch(() => {
-      throw new Error('connection failed')
-    })*/
 }
 
 module.exports = dbInit
