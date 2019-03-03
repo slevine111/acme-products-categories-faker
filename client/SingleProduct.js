@@ -1,11 +1,13 @@
 import React from 'react'
 
-const SingleProduct = ({ product }) => {
-  const { name } = product
+const SingleProduct = ({ product, categoryId, deleteProduct }) => {
+  const { name, id } = product
   return (
     <li>
       {name}
-      <button type="submit">-</button>
+      <button type="submit" onClick={() => deleteProduct(id, categoryId)}>
+        -
+      </button>
     </li>
   )
 }

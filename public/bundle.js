@@ -101,12 +101,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const List = ({ data }) => {
+const List = ({ data, createNewProduct, deleteCategory, deleteProduct }) => {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
     'ul',
     null,
     data.map(category => {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SingleCategory__WEBPACK_IMPORTED_MODULE_1__["default"], { key: category.id, category: category });
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SingleCategory__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        key: category.id,
+        category: category,
+        createNewProduct: createNewProduct,
+        deleteCategory: deleteCategory,
+        deleteProduct: deleteProduct
+      });
     })
   );
 };
@@ -130,26 +136,36 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const SingleCategory = ({ category }) => {
-  const { name, products } = category;
+const SingleCategory = ({
+  category,
+  createNewProduct,
+  deleteCategory,
+  deleteProduct
+}) => {
+  const { name, products, id } = category;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
     'li',
     null,
     name,
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
       'button',
-      { type: 'submit' },
+      { type: 'submit', onClick: () => createNewProduct(id) },
       '+'
     ),
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
       'button',
-      { type: 'submit' },
+      { type: 'submit', onClick: () => deleteCategory(id) },
       '-'
     ),
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
       'ul',
       null,
-      products.map(product => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SingleProduct__WEBPACK_IMPORTED_MODULE_1__["default"], { key: product.id, product: product }))
+      products.map(product => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SingleProduct__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        key: product.id,
+        product: product,
+        categoryId: id,
+        deleteProduct: deleteProduct
+      }))
     )
   );
 };
@@ -171,15 +187,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 
-const SingleProduct = ({ product }) => {
-  const { name } = product;
+const SingleProduct = ({ product, categoryId, deleteProduct }) => {
+  const { name, id } = product;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
     "li",
     null,
     name,
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
       "button",
-      { type: "submit" },
+      { type: "submit", onClick: () => deleteProduct(id, categoryId) },
       "-"
     )
   );
@@ -213,10 +229,58 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
     this.state = {
       data: []
     };
+    this.createNewCategory = this.createNewCategory.bind(this);
+    this.createNewProduct = this.createNewProduct.bind(this);
+    this.deleteCategory = this.deleteCategory.bind(this);
+    this.deleteProduct = this.deleteProduct.bind(this);
   }
 
   componentDidMount() {
     axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/categories').then(response => this.setState({ data: response.data })).catch(err => console.error(err));
+  }
+
+  createNewCategory() {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/categories').then(response => {
+      return this.setState(prevState => {
+        response.data.products = [];
+        prevState.data.push(response.data);
+        return { data: prevState.data };
+      });
+    });
+  }
+
+  createNewProduct(categoryId) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(`/api/categories/${categoryId}/products`).then(response => {
+      return this.setState(prevState => {
+        let selectedCategory = prevState.data.find(category => category.id === categoryId);
+        selectedCategory.products.push(response.data);
+        return { data: prevState.data };
+      });
+    });
+  }
+
+  deleteCategory(categoryId) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.delete(`/api/categories/${categoryId}`).then(() => {
+      return this.setState(prevState => {
+        const newState = prevState.data.filter(category => category.id !== categoryId);
+        return { data: newState };
+      });
+    });
+  }
+
+  deleteProduct(productId, categoryId) {
+    console.log(productId);
+    console.log(categoryId);
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.delete(`/api/categories/products/${productId}`).then(() => {
+      return this.setState(prevState => {
+        const categoryOfProduct = prevState.data.find(category => category.id === categoryId);
+        console.log(categoryOfProduct);
+        console.log(categoryOfProduct.products);
+        categoryOfProduct.products = categoryOfProduct.products.filter(product => product.id !== productId);
+
+        return { data: prevState.data };
+      });
+    });
   }
 
   render() {
@@ -235,10 +299,15 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       ),
       react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         'button',
-        { type: 'submit' },
+        { type: 'submit', onClick: this.createNewCategory },
         'Create Category'
       ),
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_List__WEBPACK_IMPORTED_MODULE_2__["default"], { data: this.state.data })
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_List__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        data: this.state.data,
+        createNewProduct: this.createNewProduct,
+        deleteCategory: this.deleteCategory,
+        deleteProduct: this.deleteProduct
+      })
     );
   }
 }
