@@ -6,7 +6,8 @@
     "start:dev": "npm run start-server:dev & npm run build-watch",
     "seed": "node ./server/DataAccess/runSeed.js",
     "test:DataAccess": "LOGGING=false ./node_modules/mocha/bin/mocha ./tests/DataAccess.spec.js --watch",
-    "start-server:dev": "nodemon --watch server -e js,html server/main.js",
+    "test:Routes": "LOGGING=false ./node_modules/mocha/bin/mocha ./tests/Routes.spec.js --watch",
+    "start-server:dev": "nodemon server/main.js --watch server -e js,html",
     "build-watch": "webpack -w"
   },
   "keywords": [],
@@ -15,7 +16,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-core": "^6.26.3",
-    "babel-loader": "^8.0.5",
+    "babel-loader": "^7.1.5",
     "babel-preset-react": "^6.24.1",
     "express": "^4.16.4",
     "faker": "^4.1.0",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^6.0.2"
+    "mocha": "^6.0.2",
+    "supertest": "^3.4.2"
   }
 }
