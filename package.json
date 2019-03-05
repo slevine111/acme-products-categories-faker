@@ -9,7 +9,8 @@
     "test:Routes": "LOGGING=false ./node_modules/mocha/bin/mocha ./tests/Routes.spec.js --watch",
     "test:ReactComponents": "LOGGING=false ./node_modules/mocha/bin/mocha ./tests/ReactComponents/*.js --watch --require babel-core/register",
     "start-server:dev": "nodemon server/main.js --watch server -e js,html",
-    "build-watch": "webpack -w"
+    "build-watch": "webpack -w",
+    "postinstall": "webpack"
   },
   "keywords": [],
   "author": "",
