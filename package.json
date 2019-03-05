@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "start": "node server/main.js",
     "start:dev": "npm run start-server:dev & npm run build-watch",
     "seed": "node ./server/DataAccess/runSeed.js",
     "test:DataAccess": "LOGGING=false ./node_modules/mocha/bin/mocha ./tests/DataAccess.spec.js --watch",
