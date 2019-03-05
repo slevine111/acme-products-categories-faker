@@ -7,6 +7,7 @@
     "seed": "node ./server/DataAccess/runSeed.js",
     "test:DataAccess": "LOGGING=false ./node_modules/mocha/bin/mocha ./tests/DataAccess.spec.js --watch",
     "test:Routes": "LOGGING=false ./node_modules/mocha/bin/mocha ./tests/Routes.spec.js --watch",
+    "test:ReactComponents": "LOGGING=false ./node_modules/mocha/bin/mocha ./tests/ReactComponents/*.js --watch --require babel-core/register",
     "start-server:dev": "nodemon server/main.js --watch server -e js,html",
     "build-watch": "webpack -w"
   },
@@ -29,7 +30,13 @@
     "webpack-cli": "^3.2.3"
   },
   "devDependencies": {
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
     "chai": "^4.2.0",
+    "chai-enzyme": "^1.0.0-beta.1",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.10.0",
     "mocha": "^6.0.2",
     "supertest": "^3.4.2"
   }
