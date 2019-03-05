@@ -1,1 +1,1 @@
-heroku link is https://my-acme-faker-website.herokuapp.com/
+heroku link is https://my-acme-faker-website.herokuapp.com/ (the lack of any "data" on page initially is on purpose to more minic real-world application, i.e. if this was like a to-do list app, wouldn't want items to already appear for user)
